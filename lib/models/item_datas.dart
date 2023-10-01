@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get_it_done/models/task.dart';
 
-class ItemData {
+class ItemData with ChangeNotifier {
   List<Task> tasks = [
     Task(title: "Peynir al"),
     Task(title: "Zeytin al"),
     Task(title: "Ders çalış"),
     Task(title: "Kitap oku"),
+    Task(title: "Dışarı çık")
   ];
 }

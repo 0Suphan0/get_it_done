@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_done/models/item_datas.dart';
 import 'package:get_it_done/widgets/item_card.dart';
+import 'package:provider/provider.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                "${itemData.tasks.length} Görev",
+                "${Provider.of<ItemData>(context).tasks.length} Görev",
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
@@ -45,8 +46,8 @@ class HomePage extends StatelessWidget {
                         itemCount: itemData.tasks.length,
                         itemBuilder: (context, index) {
                           return ItemCard(
-                              title: itemData.tasks[index].title,
-                              isActive: itemData.tasks[index].isDone);
+                              title: Provider.of<ItemData>(context).tasks[index].title,
+                              isActive: Provider.of<ItemData>(context).tasks[index].isDone);
                         }),
                   ),
                 ),
