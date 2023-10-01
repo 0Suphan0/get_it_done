@@ -20,16 +20,17 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.yellow,
           appBarTheme: const AppBarTheme(color: Colors.yellow),
           textTheme: const TextTheme(
-              // Bazı yazılar lacivert
+              headlineLarge: TextStyle(color: Colors.blueAccent),
               titleLarge: TextStyle(color: Colors.blueAccent),
               headlineMedium: TextStyle(color: Colors.blueAccent)),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
           //action button lacivert
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors.blueAccent, // FloatingActionButton rengi burada ayarlanıyor
+            backgroundColor: Colors
+                .blueAccent, // FloatingActionButton rengi burada ayarlanıyor
           ),
           useMaterial3: false,
         ),
-        home: const HomePage());
+        home: HomePage());
   }
 }
