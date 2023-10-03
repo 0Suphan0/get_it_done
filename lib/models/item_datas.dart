@@ -9,4 +9,9 @@ class ItemData with ChangeNotifier {
     Task(title: "Kitap oku"),
     Task(title: "Dışarı çık")
   ];
+
+  changeToggle(int index){
+    tasks[index].toggleStatus();
+    notifyListeners();
+  }
 }

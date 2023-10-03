@@ -3,7 +3,6 @@ import 'package:get_it_done/models/item_datas.dart';
 import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 
-
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -46,8 +45,17 @@ class HomePage extends StatelessWidget {
                         itemCount: itemData.tasks.length,
                         itemBuilder: (context, index) {
                           return ItemCard(
-                              title: Provider.of<ItemData>(context).tasks[index].title,
-                              isActive: Provider.of<ItemData>(context).tasks[index].isDone);
+                            title: Provider.of<ItemData>(context)
+                                .tasks[index]
+                                .title,
+                            isDone: Provider.of<ItemData>(context)
+                                .tasks[index]
+                                .isDone,
+                            changeTick: (_) {
+                              Provider.of<ItemData>(context, listen: false)
+                                  .changeToggle(index);
+                            },
+                          );
                         }),
                   ),
                 ),
