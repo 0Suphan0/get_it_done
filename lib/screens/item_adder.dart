@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/item_datas.dart';
 
 class ItemAdder extends StatelessWidget {
   const ItemAdder({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textController = TextEditingController();
+
     return Container(
+      padding: EdgeInsets.all(12),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          const TextField(
+            Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          TextField(
             autofocus: true,
-            decoration: InputDecoration(
+            controller: textController,
+            decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Görev Ekle",
                 hintText: "Ekle"),
           ),
-          ElevatedButton(onPressed: () {}, child: const Text("Ekle"))
+          ElevatedButton(
+              onPressed: () {
+                Provider.of<ItemData>(context, listen: false)
+                    .addTask(textController.text);
+                Navigator.pop(context);
+              },
+              child: const Text("Ekle"))
         ]),
       ),
     );

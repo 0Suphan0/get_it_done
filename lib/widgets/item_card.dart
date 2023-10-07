@@ -22,11 +22,10 @@ class ItemCard extends StatelessWidget {
       child: ListTile(
         title: Text(title,
             style: TextStyle(
-              decoration:
-                  isDone ? TextDecoration.lineThrough : TextDecoration.none,
-              color: Colors.blueAccent,
-              fontSize: 25
-            )),
+                decoration:
+                    isDone ? TextDecoration.lineThrough : TextDecoration.none,
+                color: Colors.blueAccent,
+                fontSize: 25)),
         trailing: Checkbox(
           value: isDone,
           onChanged: changeTick,

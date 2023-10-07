@@ -8,7 +8,7 @@ import 'item_adder.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final ItemData itemData = ItemData();
+ // final ItemData itemData = ItemData();
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,13 @@ class HomePage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ListView.builder(
-                        itemCount: itemData.tasks.length,
+                        itemCount: Provider.of<ItemData>(context).tasks.length,
                         itemBuilder: (context, index) {
                           return ItemCard(
-                            title: Provider.of<ItemData>(context)
+                            title: Provider.of<ItemData>(context, listen: false)
                                 .tasks[index]
                                 .title,
-                            isDone: Provider.of<ItemData>(context)
+                            isDone: Provider.of<ItemData>(context, listen: false)
                                 .tasks[index]
                                 .isDone,
                             changeTick: (_) {
@@ -66,10 +66,11 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
-                context: context, builder: (context) => const ItemAdder());
+              isScrollControlled: true,
+                context: context, builder: (context) =>  ItemAdder());
+
           },
           child: const Icon(Icons.add),
         ));
   }
 }
-

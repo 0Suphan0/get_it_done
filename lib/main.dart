@@ -5,10 +5,11 @@ import 'package:provider/provider.dart';
 import 'models/item_datas.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider<ItemData>(create: (BuildContext context) {
-    return ItemData();
-  },
-  child:  MyApp()));
+  runApp(ChangeNotifierProvider<ItemData>(
+      create: (BuildContext context) {
+        return ItemData();
+      },
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
