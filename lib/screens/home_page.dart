@@ -3,6 +3,8 @@ import 'package:get_it_done/models/item_datas.dart';
 import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 
+import 'item_adder.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -62,8 +64,12 @@ class HomePage extends StatelessWidget {
               ))
         ]),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+                context: context, builder: (context) => const ItemAdder());
+          },
           child: const Icon(Icons.add),
         ));
   }
 }
+
