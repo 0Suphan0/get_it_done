@@ -56,7 +56,10 @@ class HomePage extends StatelessWidget {
                             changeTick: (_) {
                               Provider.of<ItemData>(context, listen: false)
                                   .changeToggle(index);
-                            },
+                            }, deleteTask: (_ ) {
+                            Provider.of<ItemData>(context, listen: false)
+                                .delete(index);
+                          },
                           );
                         }),
                   ),
@@ -67,7 +70,7 @@ class HomePage extends StatelessWidget {
           onPressed: () {
             showModalBottomSheet(
               isScrollControlled: true,
-                context: context, builder: (context) =>  ItemAdder());
+                context: context, builder: (context) =>  const ItemAdder());
 
           },
           child: const Icon(Icons.add),

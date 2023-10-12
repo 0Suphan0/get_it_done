@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:get_it_done/models/task.dart';
 
+// bu class benim state objemi tutuyor. Buradaki state her yerden erişebilirim...
 class ItemData with ChangeNotifier {
   List<Task> tasks = [
     Task(title: "Peynir al"),
@@ -18,6 +20,12 @@ class ItemData with ChangeNotifier {
 
   addTask(String title) {
     tasks.add(Task(title: title));
+    notifyListeners();
+
+  }
+
+  delete(int index) {
+    tasks.removeAt(index);
     notifyListeners();
 
   }

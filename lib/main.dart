@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          //Temanın genel rengi sarı.
+          //Temanın genel rengi sarı-lacivert.
           primaryColor: Colors.yellow,
           primarySwatch: Colors.yellow,
           scaffoldBackgroundColor: Colors.yellow,
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors
                 .blueAccent, // FloatingActionButton rengi burada ayarlanıyor
           ),
-          useMaterial3: false,
+          useMaterial3: true,
         ),
         home: HomePage());
   }
