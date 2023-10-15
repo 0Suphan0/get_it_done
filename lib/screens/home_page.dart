@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_done/models/item_datas.dart';
+import 'package:get_it_done/screens/settings_page.dart';
 import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ import 'item_adder.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
- // final ItemData itemData = ItemData();
+  // final ItemData itemData = ItemData();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return SettingsPage();
+                  }));
+                },
+                icon: Icon(Icons.settings))
+          ],
           title: Text(appBarText,
               style: Theme.of(context).textTheme.headlineLarge),
           elevation: 2,
@@ -50,16 +60,18 @@ class HomePage extends StatelessWidget {
                             title: Provider.of<ItemData>(context, listen: false)
                                 .tasks[index]
                                 .title,
-                            isDone: Provider.of<ItemData>(context, listen: false)
-                                .tasks[index]
-                                .isDone,
+                            isDone:
+                                Provider.of<ItemData>(context, listen: false)
+                                    .tasks[index]
+                                    .isDone,
                             changeTick: (_) {
                               Provider.of<ItemData>(context, listen: false)
                                   .changeToggle(index);
-                            }, deleteTask: (_ ) {
-                            Provider.of<ItemData>(context, listen: false)
-                                .delete(index);
-                          },
+                            },
+                            deleteTask: (_) {
+                              Provider.of<ItemData>(context, listen: false)
+                                  .delete(index);
+                            },
                           );
                         }),
                   ),
@@ -69,9 +81,9 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
-              isScrollControlled: true,
-                context: context, builder: (context) =>  const ItemAdder());
-
+                isScrollControlled: true,
+                context: context,
+                builder: (context) => const ItemAdder());
           },
           child: const Icon(Icons.add),
         ));
