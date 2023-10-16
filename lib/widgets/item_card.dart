@@ -28,7 +28,7 @@ class ItemCard extends StatelessWidget {
               style: TextStyle(
                   decoration:
                       isDone ? TextDecoration.lineThrough : TextDecoration.none,
-                  color: Colors.blueAccent,
+                  color: Colors.black,
                   fontSize: 25)),
           trailing: Checkbox(
             value: isDone,

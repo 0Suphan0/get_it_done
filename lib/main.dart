@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get_it_done/models/color_theme_data.dart';
 import 'package:get_it_done/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 import 'models/item_datas.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider<ItemData>(
-      create: (BuildContext context) {
-        return ItemData();
-      },
-      child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<ItemData>(
+        create: (BuildContext context) => ItemData()),
+    ChangeNotifierProvider<ColorThemeData>(
+        create: (BuildContext context) => ColorThemeData()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,24 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          //Temanın genel rengi sarı-lacivert.
-          primaryColor: Colors.yellow,
-          primarySwatch: Colors.yellow,
-          scaffoldBackgroundColor: Colors.yellow,
-          appBarTheme: const AppBarTheme(color: Colors.yellow),
-          textTheme: const TextTheme(
-              headlineLarge: TextStyle(color: Colors.blueAccent),
-              titleLarge: TextStyle(color: Colors.blueAccent),
-              headlineMedium: TextStyle(color: Colors.blueAccent)),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
-          //action button lacivert
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors
-                .blueAccent, // FloatingActionButton rengi burada ayarlanıyor
-          ),
-          useMaterial3: true,
-        ),
+        theme: Provider.of<ColorThemeData>(context, listen: false)
+            .getSelectedThemeData,
         home: HomePage());
   }
 }
