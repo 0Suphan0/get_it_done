@@ -5,7 +5,7 @@ import 'package:get_it_done/models/task.dart';
 // bu class benim state objemi tutuyor. Buradaki state her yerden erişebilirim...
 class ItemData with ChangeNotifier {
 
-  List<Task> tasks = [
+  final List<Task> _tasks = [
     Task(title: "Peynir al"),
     Task(title: "Zeytin al"),
     Task(title: "Ders çalış"),
@@ -15,19 +15,21 @@ class ItemData with ChangeNotifier {
   ];
 
   changeToggle(int index) {
-    tasks[index].toggleStatus();
+    _tasks[index].toggleStatus();
     notifyListeners();
   }
 
   addTask(String title) {
-    tasks.add(Task(title: title));
+    _tasks.add(Task(title: title));
     notifyListeners();
 
   }
 
   delete(int index) {
-    tasks.removeAt(index);
+    _tasks.removeAt(index);
     notifyListeners();
 
   }
+
+  List<Task> get tasks => _tasks;
 }

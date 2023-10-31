@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'item_adder.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   // final ItemData itemData = ItemData();
 
@@ -17,20 +17,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()
-                  ));
-                },
-                icon: Icon(Icons.settings))
-          ],
-          title: Text(appBarText,
-              style: Theme.of(context).textTheme.headlineLarge),
-          elevation: 2,
-          centerTitle: true,
-        ),
+        appBar: buildAppBar(context, appBarText),
         body: Column(children: [
           Expanded(
             flex: 1,
@@ -43,48 +30,73 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Expanded(
-              flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ListView.builder(
-                        itemCount: Provider.of<ItemData>(context).tasks.length,
-                        itemBuilder: (context, index) {
-                          return ItemCard(
-                            title: Provider.of<ItemData>(context, listen: false)
-                                .tasks[index]
-                                .title,
-                            isDone:
-                                Provider.of<ItemData>(context, listen: false)
-                                    .tasks[index]
-                                    .isDone,
-                            changeTick: (_) {
-                              Provider.of<ItemData>(context, listen: false)
-                                  .changeToggle(index);
-                            },
-                            deleteTask: (_) {
-                              Provider.of<ItemData>(context, listen: false)
-                                  .delete(index);
-                            },
-                          );
-                        }),
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Consumer<ItemData>(
+                    builder: (context, itemData, child) {
+                      return Align(
+                        alignment: Alignment.topCenter,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          reverse: true,
+                          itemCount: itemData.tasks.length,
+                          itemBuilder: (context, index) {
+                            return ItemCard(
+                              title: itemData.tasks[index].title,
+                              isDone: itemData.tasks[index].isDone,
+                              changeTick: (_) {
+                                itemData.changeToggle(index);
+                              },
+                              deleteTask: (_) {
+                                itemData.delete(index);
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ))
+              ),
+            ),
+          )
         ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) => const ItemAdder());
-          },
-          child: const Icon(Icons.add),
-        ));
+        floatingActionButton: buildFloatingActionButton(context));
+  }
+
+  FloatingActionButton buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => const ItemAdder());
+        },
+        child: const Icon(Icons.add),
+      );
+  }
+
+  AppBar buildAppBar(BuildContext context, String appBarText) {
+    return AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()
+                ));
+              },
+              icon: const Icon(Icons.settings))
+        ],
+        title: Text(appBarText,
+            style: Theme.of(context).textTheme.headlineLarge),
+        elevation: 2,
+        centerTitle: true,
+      );
   }
 }
