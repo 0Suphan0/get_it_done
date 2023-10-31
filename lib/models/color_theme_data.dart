@@ -58,7 +58,9 @@ class ColorThemeData with ChangeNotifier {
   );
 
   void switchTheme(bool selected) {
-    _selectedThemeData = selected ? _redTheme: _yellowTheme;
+    print("geldi"+selected.toString());
+    _selectedThemeData = selected? _redTheme: _yellowTheme;
+    print(_selectedThemeData);
     notifyListeners();
   }
 

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: Provider.of<ColorThemeData>(context, listen: false)
+        theme: Provider.of<ColorThemeData>(context, listen: true)
             .getSelectedThemeData,
         home: HomePage());
   }
