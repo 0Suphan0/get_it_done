@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorThemeData with ChangeNotifier {
+  SharedPreferences? _sharedPreferences;
+
   final ThemeData _yellowTheme = ThemeData(
     //Temanın genel rengi sarı-lacivert.
     primaryColor: Colors.yellow,
@@ -58,11 +61,27 @@ class ColorThemeData with ChangeNotifier {
   );
 
   void switchTheme(bool selected) {
-    print("geldi"+selected.toString());
-    _selectedThemeData = selected? _redTheme: _yellowTheme;
-    print(_selectedThemeData);
+    //print("geldi" + selected.toString());
+    _selectedThemeData = selected ? _redTheme : _yellowTheme;
+    //print(_selectedThemeData);
+    saveThemeToSharedPreferences(selected); // true' kırmızı false sarı yapıyor.
     notifyListeners();
   }
 
   ThemeData get getSelectedThemeData => _selectedThemeData;
+
+
+  Future<void> createSharedPreferences() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  void saveThemeToSharedPreferences(bool value) {
+    _sharedPreferences!.setBool("themeData", value);
+  }
+
+  Future<void> loadThemeFromSharedPref() async {
+    createSharedPreferences();
+    bool? value = await _sharedPreferences!.getBool("themeData");
+    _selectedThemeData = value??false ? _redTheme : _yellowTheme;
+  }
 }

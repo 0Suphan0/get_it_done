@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 class SettingsPage extends StatelessWidget {
   SettingsPage({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +26,12 @@ class SwitchCard extends StatefulWidget {
 }
 
 class _SwitchCardState extends State<SwitchCard> {
+
   bool _value = false;
 
   @override
   Widget build(BuildContext context) {
+
     Text yellowText = const Text(
       "Sarı",
       style: TextStyle(color: Colors.yellow),
