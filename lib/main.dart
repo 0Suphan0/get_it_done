@@ -5,7 +5,11 @@ import 'package:provider/provider.dart';
 
 import 'models/item_datas.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await ColorThemeData().createSharedPreferences();
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ItemData>(
         create: (BuildContext context) => ItemData()),

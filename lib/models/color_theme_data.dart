@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorThemeData with ChangeNotifier {
   //S.p instance
-  SharedPreferences? _sharedPreferences;
+  static SharedPreferences? _sharedPreferences;
 
   final ThemeData _yellowTheme = ThemeData(
     //Temanın genel rengi sarı-lacivert.
@@ -85,7 +85,7 @@ class ColorThemeData with ChangeNotifier {
   }
 
   Future<void> loadThemeFromSharedPref() async {
-    await createSharedPreferences();
+   // await createSharedPreferences();
     bool? value = _sharedPreferences!.getBool("themeData");
     _selectedThemeData = value??false ? _redTheme : _yellowTheme;
   }
