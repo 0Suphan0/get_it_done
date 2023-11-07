@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorThemeData with ChangeNotifier {
+  //S.p instance
   SharedPreferences? _sharedPreferences;
 
   final ThemeData _yellowTheme = ThemeData(
@@ -64,24 +65,28 @@ class ColorThemeData with ChangeNotifier {
     //print("geldi" + selected.toString());
     _selectedThemeData = selected ? _redTheme : _yellowTheme;
     //print(_selectedThemeData);
-    saveThemeToSharedPreferences(selected); // true' kırmızı false sarı yapıyor.
+    saveThemeToSharedPreferences(selected); // true' kırmızı false sarı yapıyor. kırmızı mı ?
     notifyListeners();
   }
 
   ThemeData get getSelectedThemeData => _selectedThemeData;
 
 
+  //assign instance
   Future<void> createSharedPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  void saveThemeToSharedPreferences(bool value) {
+
+  Future<void> saveThemeToSharedPreferences(bool value) async {
+    await createSharedPreferences();
+    //key -> themeData,  value -> bool (burada true' kırmızı false sarı yapıyor.kırmızı mı ?)
     _sharedPreferences!.setBool("themeData", value);
   }
 
   Future<void> loadThemeFromSharedPref() async {
-    createSharedPreferences();
-    bool? value = await _sharedPreferences!.getBool("themeData");
+    await createSharedPreferences();
+    bool? value = _sharedPreferences!.getBool("themeData");
     _selectedThemeData = value??false ? _redTheme : _yellowTheme;
   }
 }

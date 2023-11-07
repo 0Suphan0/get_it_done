@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //build olmadan önce s.p'dan tema verisini set et.
     Provider.of<ColorThemeData>(context, listen: true)
         .loadThemeFromSharedPref();
 
